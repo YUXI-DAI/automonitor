@@ -39,7 +39,7 @@ for item in configlist:
             print("open 完成")
 
 
-            try:
+            for i in range(0,2):
                 telnettube.send("free", devdata)
                 while devdata.sendinvalid==True:
                     telnettube.send("free",devdata)
@@ -47,17 +47,17 @@ for item in configlist:
 
                 telnettube.receive(devdata)
                 print("receive完成")
-            except Exception as err:
-                print(err)
-            try:
+
                 telnettube.send("top", devdata)
                 while devdata.sendinvalid == True:
                     telnettube.send("top",devdata)
+
                 print("send top完成")
                 telnettube.receive(devdata)
                 print("receive完成")
-            except Exception as err:
-                print(err)
+                #终止top输出
+                telnettube.sendtest("q")
+
 
             telnettube.close()
             print("close完成")

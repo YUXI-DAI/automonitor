@@ -87,14 +87,23 @@ class telnetTube(object):
                 time.sleep(1)
                 result=result+self.telnet.read_very_eager().decode('utf-8')
             result= ILLEGAL_CHARACTERS_RE.sub(r'', result)
-            print(result)
+            # print(result)
             print("接收到了")
             if devdata.sendfree==True:
                 devdata.receivefree.append((self.config.host,result))
                 print(devdata.receivefree)
-            else:
+
+            elif devdata.sendtop==True:
                 devdata.receivetop.append((self.config.host,result))
                 print(devdata.receivetop)
+
+
         except Exception:
             traceback.print_exc()
             raise Exception("从目标receive数据失败",f"host:{self.config.host}",f"port:{self.config.port}")
+
+    def sendtest(self,command):
+        try:
+            self.telnet.write(command.encode('utf-8')+b'\n')
+        except Exception as e:
+            raise Exception("send数据到主机失败",f"host:{self.config.host}",f"port:{self.config.port}")

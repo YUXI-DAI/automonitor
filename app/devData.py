@@ -11,11 +11,13 @@ class devData:
     receivetop=[]
     devicename=""
     data=[]
+
     def combine(self):
+        count = 0
         for i in self.receivefree:
-            for j in self.receivetop:
-                if i[0]==j[0]:
-                    self.data.append((i[0],i[1],j[1]))
+            j=self.receivetop[count]
+            self.data.append((i[0],i[1],j[1]))
+            count=count+1
     def createxel(self):
         try:
             wb = Workbook()
